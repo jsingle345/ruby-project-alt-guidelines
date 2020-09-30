@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2020_09_30_205839) do
     t.string "quotation"
     t.string "mood"
     t.string "author"
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
