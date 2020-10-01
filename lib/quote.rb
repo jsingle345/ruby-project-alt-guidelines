@@ -1,4 +1,4 @@
 class Quote < ActiveRecord::Base
     belongs_to :users
-    belongs_to :favorites
+    has_many :favorites
 end
