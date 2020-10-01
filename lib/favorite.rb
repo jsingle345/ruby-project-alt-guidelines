@@ -1,4 +1,4 @@
 class Favorite < ActiveRecord::Base
-    belongs_to :users
-
+    has_many :quotes
+    has_many :users, through: :quotes
 end
