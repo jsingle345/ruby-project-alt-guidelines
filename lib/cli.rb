@@ -2,7 +2,7 @@ require 'pry'
 
 
 class Cli
-    attr_reader :input, :current_user
+    attr_reader :input, :get_user_input, :current_user
 
     def run
         @input = ""
@@ -25,7 +25,10 @@ class Cli
                 exit_app
                 break
             else 
-                puts "Invalid input, please try again"
+                puts "---------- Invalid input, please try again ----------"
+                puts ""
+                puts "" 
+                puts ""
                 menu
             end
         end
@@ -71,6 +74,7 @@ class Cli
         puts "And remember life is what you make it..."
         sleep(1.5)
         puts "Make it great #{current_user.name}!!!"
+        puts ""
     end
 
     
@@ -87,6 +91,9 @@ class Cli
     def add_quote_to_favorites
         params = {}
 
+        view_quotes
+        puts ""
+        puts ""
         puts "Enter the number of the Quote you would like to save:"
         params[:name] = @input
         params[:user_id] = current_user.id
@@ -100,7 +107,23 @@ class Cli
     end
    
     def view_favorites
-         Favorite.find_by(user_id = current_user.id)
+        puts "------  My Favorites -------"
+       
+         my_favorite = Favorite.all.find(current_user.id)
+         
+         q = Quote.find my_favorite.quote_id
+         
+         if my_favorite
+         puts ""
+         puts "#{current_user.name}'s Favorite Quotes"
+         puts ""
+         puts "#{q.id}. #{q.quotation} by: #{q.author}"
+        puts ""
+        puts ""
+         else 
+            puts "Ooops... No Quotes here, start adding quotes to your Favorites!"
+         end
+        menu
     end
 
     def modify_favorite
@@ -144,38 +167,3 @@ end
 
 
 
-###### CREATE ######
-    # def post_new
-    #     params = {}
-      
-    #     puts "Please enter the title of your new post:"
-    #     params[:title] = user_input
-    
-    #     puts "Please enter the content of your new post:"
-    #     params[:content] = user_input
-    
-    #     # 2. Let's actually instantiate the post already associated with the
-    #     # current_user
-    #     post = current_user.posts.build(params)
-    #     post.save # Insert the Post with the author_id FK
-    #     puts "Saved Post ##{post.id}..."
-    #     menu
-    #   end
-    
-    
-    ##### READ #####
-    # def post_show
-    #     puts "Loading Post #{last_input}..."
-    #     # When we load this post, it 100% belongs to the current_user
-    #     # begin
-    #     #   post = current_user.posts.find(last_input)
-    #     if post = current_user.posts.find_by(:id => last_input)
-    #       puts "--- #{post.id} --- #{post.title}"
-    #       puts
-    #       puts post.content
-    #     else
-    #     # rescue ActiveRecord::RecordNotFound
-    #       puts "Can't find a post with ID #{last_input} for you..."
-    #     end
-    #     menu
-    #   end
