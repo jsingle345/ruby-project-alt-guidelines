@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 2020_09_30_205839) do
     t.string "name"
     t.integer "user_id"
     t.integer "quote_id"
-    t.string "situation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

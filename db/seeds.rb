@@ -29,8 +29,8 @@ Quote.create(quotation: "Every true and deep love is a sacrifice.", author: "Car
 Quote.create(quotation: "My love is deep; the more I give to thee, the more I have, both are infinite.", author: "William Shakespeare", mood: "Love")
 Quote.create(quotation: "What we have once enjoyed we can never lose. All that we love deeply becomes a part of us.", author: "Helen Keller", mood: "Love")
 
-Favorite.create(name: "Lost a competition", user_id: 1, quote_id: 3, situation: "Losing")
-Favorite.create(name: "Uncle Ed's Funeral", user_id: 4, quote_id: 7, situation: "Funeral")
-Favorite.create(name: "Cousin Breonna's Wedding", user_id: 5, quote_id: 12, situation: "Wedding")
-Favorite.create(name: "On a date", user_id: 3, quote_id: 13, situation: "Flirting")
-Favorite.create(name: "LLC Launch Party", user_id: 2, quote_id: 4, situation: "Starting a business")
+Favorite.create(name: "Lost a competition", user_id: 1, quote_id: 3)   #, situation: "Losing"
+Favorite.create(name: "Uncle Ed's Funeral", user_id: 4, quote_id: 7)   #, situation: "Funeral"
+Favorite.create(name: "Cousin Breonna's Wedding", user_id: 5, quote_id: 12)  #, situation: "Wedding"
+Favorite.create(name: "On a date", user_id: 3, quote_id: 13)                 #, situation: "Flirting"
+Favorite.create(name: "LLC Launch Party", user_id: 2, quote_id: 4)           #, situation: "Starting a business"

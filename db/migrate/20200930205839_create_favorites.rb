@@ -4,7 +4,7 @@ class CreateFavorites < ActiveRecord::Migration[5.2]
       t.string :name
       t.integer :user_id
       t.integer :quote_id
-      t.string :situation
+      #t.string :situation
       t.timestamps
     end
   end
