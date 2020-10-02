@@ -2,7 +2,7 @@ require 'pry'
 
 
 class Cli
-    attr_reader :input, :get_user_input, :current_user, :my_favorite
+    attr_reader :input, :get_user_input, :current_user, :my_favorites
 
     def run
         @input = ""
@@ -119,9 +119,9 @@ class Cli
     def view_favorites
         puts "------  My Favorites -------"
        
-         my_favorite = @current_user.favorites
-        @my_favorite = my_favorite
-         my_favorite.each do |favorite|
+         my_favorites = @current_user.favorites
+        @my_favorites = my_favorites
+         my_favorites.each do |favorite|
            puts ""
            puts "Situation: #{favorite.name}"
            puts "#{favorite.id}. #{favorite.quote.quotation} by: #{favorite.quote.author}"
@@ -137,11 +137,11 @@ class Cli
         puts ""
         puts ""
         puts "Select the Favorite Number you would like to change:"
-        get_user_input
-        favorite = Favorite.find_by(id: get_user_input)
+        this_favorite = @my_favorites.find_by(:id => get_user_input)
         puts "Change Favorite name:"
-        favorite.name = get_user_input
-        favortie.save
+        this_favorite.name = get_user_input
+        
+        this_favorite.save
         puts "Favorite Name is changed"
 
         sleep(2)
