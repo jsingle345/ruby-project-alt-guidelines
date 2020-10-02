@@ -5,6 +5,7 @@ User.create(name: "Donald")
 User.create(name: "Katrina")
 
 
+
 Quote.create(quotation: "All our dreams can come true, if we have the courage to pursue them.", author: "Walt Disney", mood: "Motivation")
 Quote.create(quotation: "“The secret of getting ahead is getting started.", author: "Mark Twain", mood: "Motivation")
 Quote.create(quotation: "I’ve missed more than 9,000 shots in my career. I’ve lost almost 300 games. 

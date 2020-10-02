@@ -2,7 +2,7 @@ require 'pry'
 
 
 class Cli
-    attr_reader :input, :get_user_input, :current_user
+    attr_reader :input, :get_user_input, :current_user, :my_favorite
 
     def run
         @input = ""
@@ -36,7 +36,7 @@ class Cli
 
     def welcome
         puts "Let's Get Inspired!!!"
-    sleep(1.5)
+    #sleep(1.5)
    
     end
 
@@ -44,8 +44,8 @@ class Cli
         puts "Please enter your name to login:"
         get_user_input
         @current_user = User.find_or_create_by(:name => @input)
-        puts "Welcome #{current_user.name}!!!"
-        sleep(2)
+        puts "Welcome #{@current_user.name}!!!"
+        #sleep(2)
         puts ""
         menu
     end
@@ -70,10 +70,10 @@ class Cli
 
     def exit_app
         puts "Take care"
-        sleep(1)
+        #sleep(1)
         puts "And remember life is what you make it..."
-        sleep(1.5)
-        puts "Make it great #{current_user.name}!!!"
+        #sleep(1.5)
+        puts "Make it great #{@current_user.name}!!!"
         puts ""
     end
 
@@ -83,46 +83,51 @@ class Cli
         puts "--- Quotes ---"
         puts ""
           Quote.all.each do |quote|
+          puts ""
           puts "#{quote.id}. #{quote.quotation} by: #{quote.author}"
+          puts ""
           end
         menu
     end
 
     def add_quote_to_favorites
+        view_quotes
+        
         params = {}
 
-        view_quotes
+        
         puts ""
         puts ""
-        puts "Enter the number of the Quote you would like to save:"
-        params[:name] = @input
-        params[:user_id] = current_user.id
+
+        puts "What would you like to name this Quote as in your favorites:"
+        params[:name] = get_user_input
+    
+        
         puts "Enter the number associated with the quote you would like to save to favorites"
-        params[:quote_id] = @input
-        favorite = current_user.favorites.build(params)
-        favorite.save
+        params[:quote_id] = get_user_input
+        new_favorite = @current_user.favorites.build(params)
+        new_favorite.save
+        
+        sleep(2)
         puts "Added Quote to your Favorite..."
         sleep(2)
         menu
     end
+
+
    
     def view_favorites
         puts "------  My Favorites -------"
        
-         my_favorite = Favorite.all.find(current_user.id)
-         
-         q = Quote.find my_favorite.quote_id
-         
-         if my_favorite
-         puts ""
-         puts "#{current_user.name}'s Favorite Quotes"
-         puts ""
-         puts "#{q.id}. #{q.quotation} by: #{q.author}"
-        puts ""
-        puts ""
-         else 
-            puts "Ooops... No Quotes here, start adding quotes to your Favorites!"
+         my_favorite = @current_user.favorites
+        @my_favorite = my_favorite
+         my_favorite.each do |favorite|
+           puts ""
+           puts "Situation: #{favorite.name}"
+           puts "#{favorite.id}. #{favorite.quote.quotation} by: #{favorite.quote.author}"
+           puts ""
          end
+        puts ""
         menu
     end
 
@@ -132,10 +137,11 @@ class Cli
         puts ""
         puts ""
         puts "Select the Favorite Number you would like to change:"
-        
-        favorite = Favorite.find_by(favorite_id: @input)
+        get_user_input
+        favorite = Favorite.find_by(id: get_user_input)
         puts "Change Favorite name:"
-        favorite.update(name: @input)
+        favorite.name = get_user_input
+        favortie.save
         puts "Favorite Name is changed"
 
         sleep(2)
@@ -147,8 +153,9 @@ class Cli
         puts ""
         puts ""
         puts "Select the Favorite Number you would like to delete:"
-        favorite = Favorite.find_by(favorite_id: @input)
-        favorite.destroy
+        
+        favorite = view_favorites.find_by(favorite_id: get_user_input)
+        favorite.delete
         puts "This Favorite quote is deleted"
         sleep(2)
         menu
