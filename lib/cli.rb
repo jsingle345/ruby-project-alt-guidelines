@@ -5,16 +5,22 @@ class Cli
     attr_reader :input, :current_user
 
     def run
-        input = ""
+        @input = ""
         welcome
         login
-        while input != "exit"
-            menu
-            case get_user_input
+        while @input != "exit"
+            get_user_input
+            case @input
             when "1"
                 view_quotes
             when "2"
                 view_favorites
+            when "3"
+                add_quote_to_favorites
+            when "4"
+                modify_favorite
+            when "5"
+                delete_favorite
             when "exit"
                 exit_app
                 break
@@ -37,17 +43,26 @@ class Cli
         @current_user = User.find_or_create_by(:name => @input)
         puts "Welcome #{current_user.name}!!!"
         sleep(2)
+        puts ""
         menu
     end
 
     def menu
+        @input
         puts "What would you like to do today:"
+            puts ""
         puts "1. View Quotes"
+            puts ""
         puts "2. View My Favorite Quotes"
+            puts ""
         puts "3. Add Quotes to My Favorite Quotes"
-        puts "4.  Delete Quote from My Favorites"
+            puts ""
+        puts "4. Change My Favorite's Name"
+            puts ""
+        puts "5. Delete Quote from My Favorites"
+            puts ""
         puts "exit"
-        get_user_input
+        
     end
 
     def exit_app
@@ -80,6 +95,7 @@ class Cli
         favorite = current_user.favorites.build(params)
         favorite.save
         puts "Added Quote to your Favorite..."
+        sleep(2)
         menu
     end
    
@@ -98,6 +114,9 @@ class Cli
         puts "Change Favorite name:"
         favorite.update(name: @input)
         puts "Favorite Name is changed"
+
+        sleep(2)
+        menu
     end
 
     def delete_favorite
@@ -107,7 +126,9 @@ class Cli
         puts "Select the Favorite Number you would like to delete:"
         favorite = Favorite.find_by(favorite_id: @input)
         favorite.destroy
-        puts "Favorite is deleted"
+        puts "This Favorite quote is deleted"
+        sleep(2)
+        menu
     end
 
 
