@@ -154,8 +154,8 @@ class Cli
         puts ""
         puts "Select the Favorite Number you would like to delete:"
         
-        favorite = view_favorites.find_by(favorite_id: get_user_input)
-        favorite.delete
+        deleted_favorite = @my_favorites.find_by(:id => get_user_input)
+        deleted_favorite.delete
         puts "This Favorite quote is deleted"
         sleep(2)
         menu
